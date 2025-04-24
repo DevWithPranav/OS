@@ -81,7 +81,7 @@ int main() {
     while (1) {
         sleep(2); // simulate delay
 
-        if(sem_getValue(&d->full) == 0){
+        if(sem_getValue(&d->full,&value) == 0){
             printf("Buffer is empty, waiting for producer...\n");
             continue; // wait for producer to produce an item
         }
