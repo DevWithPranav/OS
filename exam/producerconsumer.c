@@ -81,6 +81,11 @@ int main() {
     while (1) {
         sleep(2); // simulate delay
 
+        if(sem_getValue(&d->full) == 0){
+            printf("Buffer is empty, waiting for producer...\n");
+            continue; // wait for producer to produce an item
+        }
+
         sem_wait(&d->full);      // wait until at least one item is available
         sem_wait(&d->mutex);     // enter critical section
 
