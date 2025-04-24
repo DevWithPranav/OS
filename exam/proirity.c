@@ -8,7 +8,8 @@ struct Process {
     int ct;         // Completion Time
     int tat;        // Turnaround Time
     int wt;         // Waiting Time
-    int isDone;     // Flag to check if process is completed
+    int isDone;  
+    int rt;   // Flag to check if process is completed
 };
 
 int main() {
@@ -47,6 +48,8 @@ int main() {
             }
         }
 
+        //premptive priority scheduling
+
         if (idx != -1) {
             currentTime += p[idx].bt;
             p[idx].ct = currentTime;
@@ -57,6 +60,23 @@ int main() {
         } else {
             // No process has arrived yet, move time forward
             currentTime++;
+        }
+
+        // non premptive priority scheduling
+
+        if (idx != -1) {
+            p[idx].rt--;
+            currentTime++;
+
+            if (p[idx].rt == 0) {
+                p[idx].ct = currentTime;
+                p[idx].tat = p[idx].ct - p[idx].at;
+                p[idx].wt = p[idx].tat - p[idx].bt;
+                p[idx].isDone = 1;
+                completed++;
+            }
+        } else {
+            currentTime++; // No process ready, idle time
         }
     }
 

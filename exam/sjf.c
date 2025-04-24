@@ -37,7 +37,7 @@ int main(){
             p[idx].completed = 1;
             completed++;
         }else{
-            completed++;
+            currentTime++;
         }
         
     }
